@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Checker</title>
+    <link rel="stylesheet" href="styles.css">
+      
+</head>
+<body>
+
+    <h1 id="mainTitle">Online Typing Speed Test</h1>
+    <h3 id="subTitle">TypeMaster</h1>
+
+    <!-- Authentication Section -->
+     
+    <div id="auth">
+        <!-- <h1 id="speed">Typing Speed Checker</h1> -->
+        <div id="registerSection">
+            <h3>Register</h3>
+            <input type="text" id="regUsername" placeholder="Enter Username">
+            <input type="password" id="regPassword" placeholder="Enter Password">
+            <button onclick="register()">Register</button>
+            <p id="registerMessage"></p>
+            <p class="account">Already have an account? <span class="link" onclick="showLogin()">Login</span></p>
+        </div>
+
+        <div id="loginSection" class="hidden">
+            <h3>Login</h3>
+            <input type="text" id="loginUsername" placeholder="Enter Username">
+            <input type="password" id="loginPassword" placeholder="Enter Password">
+            <button onclick="login()">Login</button>
+            <p id="loginMessage"></p>
+            <p class="account">Don't have an account? <span class="link" onclick="showRegister()">Register</span></p>
+        </div>
+    </div>
+
+    <!-- Typing Section -->
+    <div id="typingSection" class="hidden">
+        <h2>Welcome, <span id="userDisplay"></span>! Check Your Typing Speed</h2>
+
+        <label for="levelSelect">Select Difficulty:</label>
+        <select id="levelSelect" onchange="updateTimeOptions()">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+            <option value="pro">Pro</option>
+        </select>
+
+        <label for="timeSelect">Select Time:</label>
+        <select id="timeSelect"></select>
+
+        <button onclick="startTyping()">Start</button>
+        <button onclick="restartTest()">Restart</button>
+
+        <p id="sentence">Click Start to begin typing!</p>
+        <p id="timeLeft" class="hidden">Time Left: <span id="timeCounter"></span> sec</p>
+
+        <textarea id="typingArea" class="hidden" oninput="checkTyping()" onpaste="return false;"></textarea>
+        <p id="feedback" class="hidden"></p>
+    </div>
+
+    <!-- Leaderboard -->
+    <div id="leaderboard">
+        <h2>🏆 Weekly Leaderboard</h2>
+        <ol id="topTypists"></ol>
+    </div>
+
+   
+    <script src="script.js"></script>
+</body>
+</html>
