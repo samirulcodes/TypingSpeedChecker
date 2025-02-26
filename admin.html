@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .hidden { display: none; }
+        .container { width: 100%; max-width: 900px; margin: auto; padding: 20px; }
+        .login-box { width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        
+        .dashboard { display: flex; justify-content: space-between; }
+        .column { width: 48%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: left; }
+        .column h3 { text-align: center; }
+        
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 5px 0; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
+        
+        .logout-btn { margin-top: 10px; padding: 8px 15px; border: none; background-color: red; color: white; cursor: pointer; }
+        .logout-btn:hover { background-color: darkred; }
+    </style>
+</head>
+<body>
+
+    <h2>Admin Login</h2>
+    <div class="login-box" id="adminLoginSection">
+        <input type="email" id="adminEmail" placeholder="Admin Email"><br><br>
+        <input type="password" id="adminPassword" placeholder="Admin Password"><br><br>
+        <button onclick="adminLogin()">Login</button>
+        <p id="adminLoginMessage" style="color: red;"></p>
+    </div>
+
+    <div id="adminDashboard" class="hidden">
+        <h2>Admin Dashboard</h2>
+
+        <div class="dashboard">
+            <!-- Registered Users -->
+            <div class="column">
+                <h3>Registered Users</h3>
+                <ul id="userList"></ul>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="column">
+                <h3>Leaderboard</h3>
+                <ul id="leaderboardList"></ul>
+                <h3>🏆 Weekly Winner 🏆</h3>
+                <p id="weeklyWinner"></p>
+            </div>
+        </div>
+
+        <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+    </div>
+
+    <script>
+        // Admin Credentials (Change these as needed)
+        const adminCredentials = { email: "admin@example.com", password: "admin123" };
+
+        function adminLogin() {
+            let email = document.getElementById("adminEmail").value;
+            let password = document.getElementById("adminPassword").value;
+
+            if (email === adminCredentials.email && password === adminCredentials.password) {
+                localStorage.setItem("adminLoggedIn", "true");
+                loadAdminDashboard();
+            } else {
+                document.getElementById("adminLoginMessage").textContent = "Invalid Credentials!";
+            }
+        }
+
+        function loadAdminDashboard() {
+            document.getElementById("adminLoginSection").classList.add("hidden");
+            document.getElementById("adminDashboard").classList.remove("hidden");
+        
+            // ✅ Fetch Registered Users
+            let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+            let userList = document.getElementById("userList");
+            userList.innerHTML = ""; // Clear previous list
+        
+            if (users.length === 0) {
+                userList.innerHTML = "<p>No users registered yet.</p>";
+            } else {
+                users.forEach(user => {
+                    let listItem = document.createElement("li");
+                    listItem.textContent = user.username || "Unknown User"; // ✅ Prevent undefined issue
+                    userList.appendChild(listItem);
+                });
+            }
+        
+            // ✅ Fetch Leaderboard
+            let scores = JSON.parse(localStorage.getItem("weeklyScores")) || [];
+            let leaderboardList = document.getElementById("leaderboardList");
+            leaderboardList.innerHTML = "";
+        
+            scores.sort((a, b) => a.time - b.time);
+            scores.slice(0, 5).forEach((entry, index) => {
+                let listItem = document.createElement("li");
+                listItem.innerHTML = `${index + 1}. ${entry.user || "Unknown"} - ${entry.time}s`;
+                leaderboardList.appendChild(listItem);
+            });
+        
+            let lastWinner = scores.length > 0 ? scores[0].user : "No winner yet.";
+            document.getElementById("weeklyWinner").textContent = `🏆 ${lastWinner} 🏆`;
+        }        
+
+        function logoutAdmin() {
+            localStorage.removeItem("adminLoggedIn");
+            location.reload();
+        }
+
+        window.onload = function () {
+            if (localStorage.getItem("adminLoggedIn") === "true") {
+                loadAdminDashboard();
+            }
+        };
+    </script>
+
+</body>
+</html>

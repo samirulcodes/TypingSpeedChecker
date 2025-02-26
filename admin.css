@@ -1,0 +1,94 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Admin Login Box */
+.login-box {
+    background-color: #1e1e1e;
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #e64a19;
+}
+
+/* Admin Dashboard */
+.dashboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.column {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    min-height: 300px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+h2, h3 {
+    color: #ffab40;
+}
+
+/* List Styles */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #333;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-align: left;
+}
+
+/* Logout Button */
+.logout-btn {
+    margin-top: 20px;
+    background-color: #ff1744;
+}
+
+.logout-btn:hover {
+    background-color: #d50000;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none;
+}

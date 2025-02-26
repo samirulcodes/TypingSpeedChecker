@@ -48,7 +48,19 @@ function register() {
         return;
     }
 
-    localStorage.setItem(username, password);
+    // ✅ Fetch existing users
+    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+    // ✅ Check for duplicate usernames
+    if (users.some(user => user.username === username)) {
+        document.getElementById("registerMessage").textContent = "Username already taken!";
+        return;
+    }
+
+    // ✅ Store the new user
+    users.push({ username: username, password: password });
+    localStorage.setItem("registeredUsers", JSON.stringify(users));
+
     document.getElementById("registerMessage").textContent = "Successfully Registered! Redirecting to Login...";
     
     setTimeout(() => {
@@ -56,17 +68,25 @@ function register() {
     }, 1500);
 }
 
+
 function login() {
     let username = document.getElementById("loginUsername").value;
     let password = document.getElementById("loginPassword").value;
 
-    if (localStorage.getItem(username) === password) {
+    // ✅ Fetch registered users from localStorage
+    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+    // ✅ Find the user
+    let user = users.find(user => user.username === username && user.password === password);
+
+    if (user) {
         localStorage.setItem("loggedInUser", username);
         loadTypingSection(username);
     } else {
         document.getElementById("loginMessage").textContent = "Invalid login!";
     }
 }
+
 
 function loadTypingSection(username) {
     document.getElementById("auth").classList.add("hidden");

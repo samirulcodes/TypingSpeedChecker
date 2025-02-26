@@ -22,7 +22,7 @@
             <input type="password" id="regPassword" placeholder="Enter Password">
             <button onclick="register()">Register</button>
             <p id="registerMessage"></p>
-            <p class="account">Already have an account? <span class="link" onclick="showLogin()">Login</span></p>
+            <p class="account">Already have an account? <span class="link" onclick="showLogin()">Login </span><a href="admin.html">Admin Login</a></p>
         </div>
 
         <div id="loginSection" class="hidden">
@@ -31,7 +31,7 @@
             <input type="password" id="loginPassword" placeholder="Enter Password">
             <button onclick="login()">Login</button>
             <p id="loginMessage"></p>
-            <p class="account">Don't have an account? <span class="link" onclick="showRegister()">Register</span></p>
+            <p class="account">Don't have an account? <span class="link" onclick="showRegister()">Register</span><a href="admin.html">Admin Login</a></p>
         </div>
     </div>
 
@@ -65,6 +65,7 @@
         <h2>🏆 Weekly Leaderboard</h2>
         <ol id="topTypists"></ol>
     </div>
+    
 
    
     <script src="script.js"></script>
